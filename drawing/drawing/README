@@ -6,7 +6,7 @@ assignments. The documentation is available on the homepage. The files are:
                 drawing
   drawing.c     C routines to be compiled separately.
   test.pm1	an example file to test showquad and printquad. This was done
-                for students implemented PM1 quadtrees
+                for implemented PM1 quadtrees
   test.mxcif    an example file to test showquad and printquad. This was done
                 from an implementation of MX-CIF quadtrees.
   Makefile      build rules for showquad and printquad
