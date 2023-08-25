@@ -1,5 +1,4 @@
 # Makefile for quadtree programs
-# by Gisli R. Hjaltason
 
 all: printquad showquad
 
