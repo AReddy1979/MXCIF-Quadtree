@@ -1,0 +1,42 @@
+This is the input that created the output below.
+==================================================
+INIT_QUADTREE(7)
+CREATE_RECTANGLE(11, 104, 24, 10, 10)
+CREATE_RECTANGLE(12, 115, 5, 5, 3.5) 
+LIST_RECTANGLES()
+INSERT(11)
+INSERT(12)
+DISPLAY()
+
+This is the output from the input above./
+===================================================
+Rectangle "11" created with endpoints (94.00, 34.00), (114.00, 14.00)
+Rectangle "12" created with endpoints (110.00, 8.50), (120.00, 1.50)
+
+Listing of all rectangles
+====================================================
+11     center=(104.0,  24.0) lengths=( 10.0,  10.0)
+12     center=(115.0,   5.0) lengths=(  5.0,   3.5)
+
+11 has been inserted.
+12 has been inserted.
+$$$$ SP(129.00,129.00)
+LD(4,2)
+DR(0.00,128.00,128.00,0.00)
+LD(4,2)
+DL(64.00,128.00,64.00,0.00)
+DL(0.00,64.00,128.00,64.00)
+LD(0,0)
+LD(4,2)
+DL(96.00,64.00,96.00,0.00)
+DL(64.00,32.00,128.00,32.00)
+LD(0,0)
+DR(94.00,34.00,114.00,14.00)
+DN(11,95.00,15.00)
+LD(4,2)
+DL(112.00,32.00,112.00,0.00)
+DL(96.00,16.00,128.00,16.00)
+LD(0,0)
+DR(110.00,8.50,120.00,1.50)
+DN(12,111.00,2.50)
+EP

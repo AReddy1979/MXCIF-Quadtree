@@ -1,0 +1,82 @@
+#MXCIF-Quadtree:
+
+Definition
+
+An MXCIF-QuadTree is a data structure used to store rectangles in one of four quadrants in a graph. 
+
+
+#Operations
+The following is a description of the operations:
+	
+###INIT_QUADTREE(int w): (OPCODE = 1)
+Initialize a new empty quad-tree T that covers the area from (0,0) to (2w,2w). Any existing quad-tree should be deleted. Print the message “initialized a quadtree of width D” where D is 2w.
+
+###DISPLAY() : (OPCODE = 2)
+This operation should be implemented as specified in the original project description. There will be no automated test for this operation.
+
+###LIST_RECTANGLES() : (OPCODE = 3)
+Print the message “listing N rectangles: ” where N is the total number of rectangles in C. Then, starting from the next line, print a list of all the rectangles in the collection C in the ascending order of their names. Print each rectangle in one line. For each rectangle print its name, its lower left x and y coordinate values and its upper right x and y coordinate values in order and separate them by spaces.
+
+###CREATE_RECTANGLE(string R, int xc, int yc, int w, int h) : (OPCODE = 4)
+Create a new rectangle with the name R, centroid at (xc,yc), width w, and height h, and add it to the collection C. Note that the rectangle does not need to be within the valid range of the rectangle tree T . Print the message “created rectangle R” where R is the name of the rectangle.
+
+###CREATE_RECTANGLE_RANDOM(string R) : (OPCODE = 4)
+Create a new rectangle with the name R and random centroid coordinate values and side lengths add it to C. Print the message “created rectangle R XC, YC, W, and H” where R is the name of the rectangle and (XC, Y C) are the coordinate values of its centroid, W is the width, and H is the height.
+
+###RECTANGLE_SEARCH(string R) : (OPCODE = 5)
+Search for all the rectangles in T that intersect with the rectangle R. Print the message “found N rectangles: R1 R2 ... ” where N is the number of rectangles in T that intersect R. and R1, R2, . . . are the names of those rectangles.
+If R itself is in T then it should be printed as well. You should print the intersecting rectangles in the order they were visited first. You should traverse the quadtree int the order of NW, NE, SW, SE to visit/print the rectangles in the correct order. You should avoid visiting quadtree nodes that do not intersect with R.
+
+###INSERT(string R) : (OPCODE = 6)
+Add the rectangle R to the rectangle tree T . Then print the message “inserted rectangle R”. If R intersects another rectangle in T or if it is already in T then print the message “failed: intersects with S” where S is the name of the rectangle already in T that would intersect with R. If the rectangle R is not entirely contained in the region covered by T then print the message “failed: out of range”
+
+###SEARCH_POINT(int x, int y) : (OPCODE = 7)
+Find the rectangle in T that contains (x,y) and print the message “found rectangle R” where R is the name of the rectangle. If no such rectangle was found then print the message “no rectangle found”. See Def. 1 for an explanation of when a point belongs to a rectangle.
+
+###DELETE_RECTANGLE(string R) : (OPCODE = 8)
+Delete the rectangle R from the quadtree T . If successful, print the message “deleted rectangle R” where R is the name of the rectangle being deleted. Note that this operation deletes the rectangle from T not from C. If the rectangle is in C but not in the quadtree T then print the message “rectangle not found R”.
+
+###DELETE_POINT(int x, int y) : (OPCODE = 8)
+Find the rectangle in the quadtree T containing the point (x, y) and then delete it from the quadtree. If successful, print the message “deleted rectangle R” where R is the name of the rectangle being deleted. If no such rectangle was found then print the message “no rectangle found at (x, y)” where (x, y) is the coordinate values of the point. See Def. 1 for an explanation of when a point belongs to a rectangle.
+• TRACE ON and TRACE OFF:
+These commands enable/disable trace output. When tracing is on, you should print the node number of the quadtree nodes that were visited in the order that they were visited (pre-order) during the operation. The root of the quadtree has node number 0. Children of a quadtree node with number N are numbered as 4N +1 to 4N +4 in the order NW, NE, SW, SE.
+You should traverse the children of a quadtree node in the order of NW, NE, SW, SE to print the node numbers is the correct order. When trace is on, the node numbers should be printed in the same line between a pair of brackets after the operation name/arguments like:
+  OPERATION(ARG1, ..., ARGN) [NODE1 NODE2 .... ]: MESSAGE
+Where NODE1, NODE2, ...are the node numbers for the quadtree nodes that were visited.
+Note that only the following operations should print a trace output: RECTANGLE_SEARCH, SEARCH_POINT, TOUCH, WITHIN, HORIZ_NEIGHBOR, VERT_NEIGHBOR, NEAREST_RECTANGLE, WINDOW and NEAREST_NEIGHBOR. All the other operations are not affected.
+
+
+###TOUCH(string R) : (OPCODE = 9)
+Search for all the rectangles in T that touch the rectangle R (but don’t intersect it). Print the message “found N rectangles: R1 R2 ... ” where N is the number of rectangles in T that touch R. and R1, R2, . . . are the names of those rectangles.
+You should print the touching rectangles in the order they were visited first. You should traverse the quadtree int the order of NW, NE, SW, SE to visit/print the rectangles in the correct order.
+
+###WITHIN(string R, int d) : (OPCODE = 10)
+Assume that R = ((x1,y1),(x2,y2)). Define the expansion of rectangle R by distance d to be the rectangle R+d = ((x1 − d, y1 − d), (x2 + d, y2 + d)). Search for all the rectangles in T that intersect the donut shaped region contained between R and R+d. A rectangle intersects the region contained between R and R+d if and only if it intersects R+d and it is not contained in R. Print the message “found N rectangles: R1 R2 ... ” where N is the number of rectangles in T that intersect the region in R+d − R and R1, R2, . . . are the names of those rectangles.
+You should print the intersecting rectangles in the order they were visited first. You should traverse the quadtree int the order of NW, NE, SW, SE to visit/print the rectangles in the correct order. Remember that you should avoid visiting quadtree nodes whose region do not intersect the query, for example if a quadtree node is entirely contained in R.
+
+###HORIZ_NEIGHBOR(string R) : (OPCODE = 11)
+Find the rectangle in the quadtree T with the minimum non-negative horizontal distance to R. In other words, find the rectangle in T whose projection on the X-axis is closest to the projection of R on the X-axis but does not intersect it. For a definition of horizontal distance see Def. 4. If there are multiple rectangles that have the minimum non-negative horizonal distance to R then choose the one that was visited first during the traversal of the quadtree.
+Note that to implement this operation correctly you will need to use a priority queue. The priority queue will contain the nodes to be visited in the increasing order of their horizontal distance from the query rectangle. That is, nodes that have smaller horizontal distance to the query rectangle should be visited first. All the nodes with negative horizontal distance should be treated as having a horizontal distance of 0. If there are multiple nodes with the same horizontal distance then the one with a smaller node number should be visited first. You should avoid visiting quadtree nodes that are farther from the query rectangle than the nearest rectangle found so far.
+You should print the message “found rectangle S” where S is the result of the query. If no such rectangle was found (i.e. if the quadtree is either empty or if all the rectangle in the quadtree have negative horizontal distance to the query rectangle) then print the message “no rectangle found”.
+
+###VERT_NEIGHBOR(string R) : (OPCODE = 11)
+Find the rectangle in the quadtree T with the minimum non-negative vertical distance to R. For a definition of vertical distance see Def. 5. If there are multiple rectangles that have the minimum non-negative vertical distance to R then choose the one that was visited first during the traversal of the quadtree. Traversal order and output message is similar to HORIZ_NEIGHBOR except that instead of horizontal distance, vertical distance should be used.
+
+###NEAREST_RECTANGLE(int x, int y) : (OPCODE = 12)
+Find the rectangle in the quadtree T with the minimum distance to the point (x, y). The distance of a rectangle to the point (x, y) is the length of the shortest line segment connecting the two. In particular, if the point lies on the boundary or inside a rectangle then its distance to the rectangle by the previous definition is 0. If there are multiple rectangles that have the minimum distance to (x,y) then choose the one that was visited first during the traversal of the quadtree. Traversal order and output message is similar to HORIZ_NEIGHBOR except that instead of horizontal distance, euclidian distance to (x,y) should be used. Also note that this operation should always find some rectangle unless the quadtree is empty!
+
+###WINDOW(int x1, int y1, int x2, int y2) : (OPCODE = 13)
+Search for all the rectangles in T that are entirely contained in the rectangle with lower left corner at (x1, y1) and upper right corner at (x2, y2). Print the message “found N rectangles: R1 R2 ... ” where N is the number of rectangles in T that are entirely within the query rectangle and R1, R2, . . . are the names of those rectangles.
+You should print the contained rectangles in the order they were visited first. You should traverse the quadtree in the order of NW, NE, SW, SE to visit/print the rectangles in the correct order.
+
+###NEAREST_NEIGHBOR(string R) : (OPCODE = 14)
+Find the rectangle in the quadtree T that is closest to R but does not intersect R. The distance between two rectangles is the length of the shortest line segment connecting them. If there are multiple rectangles that have the minimum distance to R then choose the one that was visited first during the traversal of the quadtree. Traversal order and output message is similar to HORIZ_NEIGHBOR except that instead of horizontal distance, the euclidian distance of the quadtree nodes to R should be used. If a quadtree node intersects with R then its distance to R is considered to be 0. Also note that you should not visit quadtree nodes that are entirely contained in R because they cannot possibly contain a rectangle that does not intersect with R.
+
+###LEXICALLY_GREATER_NEAREST_NEIGHBOR(string R) : (OPCODE = 15)
+This is similar to NEAREST_NEIGHBOR except that you should only consider the rectangles in T whose names are lexicographically greater than R. The traversal order and output message is also similar. Note that if there are multiple rectangles with the same minimum distance to R, you should choose the one that was visited first during the traversal of the quadtree.
+
+###LABEL() : (OPCODE = 16)
+You should do a connected component labeling of the rectangles in the quadtree. Two rectangles are considered to be connected if they are touching (either a side or a corner). You should then print the message “found N connected components: ” where N is the total number of connected components. Then, starting from the next line, print a list of all the rectangles in the quadtree in the ascending order of their names. For each rectangle print one line containing its name followed by the name of the rectangle in its connected component that has the lexicographically smallest name in that connected component.
+
+
+

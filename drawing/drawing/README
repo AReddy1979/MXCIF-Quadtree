@@ -1,0 +1,14 @@
+This directory contains files pertaining to drawing support for the quadtree
+assignments. The documentation is available on the homepage. The files are:
+
+  README	This file
+  drawing_c.h   C/C++ header file to be included in source files to implement
+                drawing
+  drawing.c     C routines to be compiled separately.
+  test.pm1	an example file to test showquad and printquad. This was done
+                for students implemented PM1 quadtrees
+  test.mxcif    an example file to test showquad and printquad. This was done
+                from an implementation of MX-CIF quadtrees.
+  Makefile      build rules for showquad and printquad
+  printquad.c   code for printquad
+  showquad.c    code for showquad
